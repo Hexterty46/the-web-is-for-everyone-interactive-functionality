@@ -69,6 +69,167 @@ app.post(…, async function (request, response) {
 })
 */
 
+app.get('/', async function (request, response) {
+   // Render index.liquid uit de Views map
+   // Geef hier eventueel data aan mee
+   const params = {
+    'filter[district]': 'algemeen',
+    'fields': 'title, district, intro, date, cover.*'
+  }
+
+  if (request.query.sort === "nieuw") {
+    params['sort'] = '-date'
+  } else if (request.query.sort === "oud") {
+    params['sort'] = 'date'
+  }
+
+   if (request.query.search && request.query.search.trim() !== "") {
+      params['filter[title][_icontains]'] = request.query.search
+   }
+
+  const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+  // console.log(apiURL)
+
+  const apiResponse = await fetch(apiURL)
+  const apiResponseJSON = await apiResponse.json()
+  console.log(apiResponseJSON.data)
+
+   response.render('index.liquid', {
+      stories : apiResponseJSON.data,
+      search: request.query.search || ""
+    })
+})
+
+app.get('/:district', async function (request, response) {
+
+  const district = request.params.district || "algemeen"
+
+  const params = {
+    'fields': 'title, district, intro, date, cover.*'
+  }
+
+  // Dit zou er eigenlijk moeten zorgen dat, als er geen zoekterm is dat ik dan de artikelen zie van de huidige district, en als er wel een zoekterm is dat er wereldwijd word gezogd. MAAR HET WERKT NOG NIET IK WEET OOK NOG NIET WAAROM
+  // Trim is er voor om alle witruimte te verwijderen aan het begin en einde
+  if (!request.query.search || request.query.search.trim() === "") {
+    params['filter[district]'] = district;
+  } else {
+    params['filter[title][_icontains]'] = request.query.search;
+  }
+
+  // Word gebruikt voor het filteren op datum
+  if (request.query.sort === "nieuw") {
+    params['sort'] = '-date'
+  } else if (request.query.sort === "oud") {
+    params['sort'] = 'date'
+  }
+
+  const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+
+  const apiResponse = await fetch(apiURL)
+  const apiResponseJSON = await apiResponse.json()
+
+  response.render('district.liquid', {
+    stories: apiResponseJSON.data,
+    district: district,
+    search: request.query.search || ""
+  })
+
+})
+
+// app.get('/nieuw-west', async function (request, response) {
+//    // Render index.liquid uit de Views map
+//    // Geef hier eventueel data aan mee
+//    const params = {
+//     'filter[district]': 'nieuw-west',
+//     'fields': 'title, district, intro, date, cover.id'
+//   }
+
+//   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+//   // console.log(apiURL)
+
+//   const apiResponse = await fetch(apiURL)
+//   const apiResponseJSON = await apiResponse.json()
+//   // console.log(apiResponseJSON.data)
+//    response.render('district.liquid', {stories : apiResponseJSON.data})
+// })
+
+// app.get('/oost', async function (request, response) {
+//    // Render index.liquid uit de Views map
+//    // Geef hier eventueel data aan mee
+//    const params = {
+//     'filter[district]': 'oost',
+//     'fields': 'title, district, intro, date, cover.id'
+//   }
+
+//   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+//   // console.log(apiURL)
+
+//   const apiResponse = await fetch(apiURL)
+//   const apiResponseJSON = await apiResponse.json()
+//   // console.log(apiResponseJSON.data)
+//    response.render('district.liquid', {stories : apiResponseJSON.data})
+// })
+
+// app.get('/zuid-oost', async function (request, response) {
+//    // Render index.liquid uit de Views map
+//    // Geef hier eventueel data aan mee
+//    const params = {
+//     'filter[district]': 'zuid-oost',
+//     'fields': 'title, intro, date, cover.id'
+//   }
+
+//   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+//   // console.log(apiURL)
+
+//   const apiResponse = await fetch(apiURL)
+//   const apiResponseJSON = await apiResponse.json()
+//   // console.log(apiResponseJSON.data)
+//    response.render('district.liquid', {stories : apiResponseJSON.data})
+// })
+
+// app.get('/algemeen-nieuws-nieuw-oud', async function (request, response) {
+//    // Render index.liquid uit de Views map
+//    // Geef hier eventueel data aan mee
+
+
+//    const params = {
+//     'filter[district]': "algemeen",
+//     'fields': 'title, intro, date, cover.*',
+//     'sort': '-date'
+//   }
+
+//   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+//   // console.log(apiURL)
+
+//   const apiResponse = await fetch(apiURL)
+//   const apiResponseJSON = await apiResponse.json()
+//   // console.log(personResponseJSON.data)
+//    response.render('index.liquid', {
+//     stories: apiResponseJSON.data
+//   })
+// })
+
+// app.get('/algemeen-nieuws-oud-nieuw', async function (request, response) {
+//    // Render index.liquid uit de Views map
+//    // Geef hier eventueel data aan mee
+
+
+//    const params = {
+//     'filter[district]': "algemeen",
+//     'fields': 'title, intro, date, cover.*',
+//     'sort': 'date'
+//   }
+
+//   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+//   // console.log(apiURL)
+
+//   const apiResponse = await fetch(apiURL)
+//   const apiResponseJSON = await apiResponse.json()
+//   // console.log(personResponseJSON.data)
+//    response.render('index.liquid', {
+//     stories: apiResponseJSON.data
+//   })
+// })
 
 // Stel het poortnummer in waar Express op moet gaan luisteren
 // Lokaal is dit poort 8000; als deze applicatie ergens gehost wordt, waarschijnlijk poort 80
@@ -78,4 +239,8 @@ app.set('port', process.env.PORT || 8000)
 app.listen(app.get('port'), function () {
   // Toon een bericht in de console
   console.log(`Daarna kun je via http://localhost:${app.get('port')}/ jouw interactieve website bekijken.\n\nThe Web is for Everyone. Maak mooie dingen 🙂`)
+})
+
+app.use((req, res, next) => {
+   res.status(404).render("error.liquid")
 })
