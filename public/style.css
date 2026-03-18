@@ -1,0 +1,272 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+@font-face {
+    font-family: Arial-regg;
+    src: url(/arial.ttf);
+}
+
+@font-face {
+    font-family: Buurtcampus-Arial;
+    src: url(/BuurtCampusArial-Bold.woff);
+}
+
+body {
+    /* background-color: #333d52; */
+    /* HEADER STYLING */
+    header {
+    background-color: var(--header-primary-background-color);
+    margin: 1rem;
+    border-radius: 1rem;
+    padding: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+
+        button {
+            padding: .5rem;
+            background-color: var(--primary-orange-color);
+            color: white;
+            border: none;
+            border-radius: .5rem;
+
+            @media (min-width: 768px) {
+                display: none;
+            }
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search {
+            position: relative;
+            width: 100%;
+            /* align-self: center; */
+            input {
+                position: inherit;
+                width: 100%;
+                padding-left: 2.2rem;                
+                font-family: Arial-regg, sans-serif;
+                font-size: 1rem;
+                padding: .1rem;
+
+                &::placeholder {
+                    color: black;
+                }
+            }
+
+            svg {
+                position: absolute;
+                right: 1rem;
+                top: 7%;
+                transform: translate(10%);
+            }
+        }
+
+        nav {
+            position: relative;
+            display: none;
+            @media (min-width: 768px) {
+                display: flex;
+            }
+
+            ul {
+
+                @media (min-width: 768px) {
+                    display: flex;
+                    gap: 2rem;
+                    padding-inline-end: 1rem;
+                }
+                li {
+                    list-style: none;
+                }
+            }
+        }
+    }
+    /* NIEWS STYLING */
+
+    .menu {
+        ul {
+            list-style: none;
+            position: static;
+            place-items: center;
+            border: none;
+            margin-right: auto;
+            margin-left: auto;
+
+            details {
+                margin: 0;
+                border: none;
+
+                ul {
+                    max-height: 140px;
+                    overflow: hidden;
+                    transition: max-height 0.3s ease;
+
+                    li {
+                        /* Hier moeten nog de kleuren komen van de buurten in de menu */
+                        a {
+                            font-size: 1.5rem;
+                        }
+                    }
+                }
+
+                summary {
+                    font-size: 2rem;
+                    color: #101828;
+                    transition: color 0.2s ease;
+
+                    span {
+                        font-family: Arial-regg, sans-serif;
+                    }
+
+                    svg {
+                        width: 1em;
+                        height: 1em;
+                        stroke: #101828;
+                        transition: color 0.2s ease;
+                    }
+
+                    &::marker {
+                        content: "";
+                    }
+                }
+            }
+
+            li {
+                a {
+                    font-family: Arial-regg, sans-serif;
+                    text-decoration: none;
+                    color: #101828;
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+
+    .input-section {
+        /* background-color: #333d52; */
+        /* display: grid;
+        grid-template-columns: 1fr auto 1fr; */
+        align-items: center;
+        gap: .5rem;
+        /* padding-bottom: .4rem; */
+        padding-inline-start: 1.1rem;
+        margin-block-end: -.7rem;
+        cursor: pointer;
+
+        select {
+            /* grid-column: 1; */
+            justify-self: end;
+            padding: .2rem;
+            font-size: 1rem;
+            font-family: Arial-regg, sans-serif;
+        }
+
+    }
+
+    .menu {
+        display: flex;
+        position: fixed;
+        z-index: 10;
+        background-color: white;
+        translate: -100%;
+        width: 100%;
+        height: 100vh;
+        interactivity: inert;
+        transition: .3s ease ;
+
+        &.is-open {
+            translate: 0;
+            interactivity: auto;
+        }
+    }
+
+    article {
+        /* border: 1px solid black; */
+        border-bottom: 1px solid black;
+        /* background-color: #333d52; */
+        display: flex;
+        flex-direction: column;
+        gap: .4rem;
+        /* border-radius: .5rem; */
+        margin: 1rem;
+
+        /* &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 14px rgba(0,0,0,.25);
+        } */
+
+        details {
+            summary {
+                font-size: large;
+                font-family: Arial-regg, sans-serif;
+                /* color: #B4BDD0; */
+                cursor: pointer;
+            }
+
+            p {
+                text-align: center;
+                font-weight: bold;
+                margin-top: .4rem;
+            }
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            /* border-radius: .4rem; */
+            border: none;
+        }
+
+        time {
+            /* color: #B4BDD0; */
+            display: flex;
+            gap: .3rem;
+            text-align: center;
+            font-family: Arial-regg, sans-serif;
+        }
+
+        h2 {
+            /* color: #B4BDD0; */
+            font-family: Arial-regg, sans-serif;
+            text-align: center;
+            /* font-size: 1.5rem; */
+            text-wrap: balance;
+        }
+
+        h1 {
+            /* color: #B4BDD0; */
+            font-family: Buurtcampus-Arial;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #F26522;
+            font-weight: bold;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        p {
+            font-family: Arial-regg, sans-serif;
+            padding-block: 0.5em;
+            /* color: #B4BDD0; */
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+}
