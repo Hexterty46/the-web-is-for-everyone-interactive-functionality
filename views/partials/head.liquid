@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buurtcampus</title>
+    <link rel="stylesheet" href="/style.css">    
+    <link rel="stylesheet" href="/styleguide.css">
+    <script defer src="script.js"></script>
+  </head>
+  {% comment %} Class word aangegeven om de huisstijlen toe te passen op verschillende districts. NOG GEEN TIJD GEHAD OM DIT TE TESTEN DOOR AL DIE ANDERE KUT PROBLEMEN {% endcomment %}
+  <body class="district-{{ district | default: 'algemeen' }}">
+    <header>
+      <div class="top-bar">
+        <a href="/">
+          {% comment %} De IMAGE zou moeten veranderen bij elke district, IK HEN NOG GEEN IDEE WAAROM DIT NIET GEBEURD IK GA GEK WORDEN {% endcomment %}
+          <img src="/logo-{{ district | default: 'algemeen' }}.png" width="150" height="60">
+        </a>
+        <button id="menuOpen">Menu</button>
+        <nav>
+          <ul>
+            <li>
+              <a href="/zuidoost">
+                Zuidoost
+              </a>
+            </li>
+            <li>
+              <a href="/oost">
+                Oost
+              </a>
+            </li>
+            <li>
+              <a href="/nieuw-west">
+                Nieuw-West
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <section class="search">
+        <form method="GET" action="/{{ district }}">
+          <input type="search" placeholder="Zoeken naar nieuws..." name="search" value="{{ search }}">
+          <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+        </form>
+      </section>
+    </header>
