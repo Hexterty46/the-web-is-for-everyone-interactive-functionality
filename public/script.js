@@ -2,9 +2,13 @@ const menuOpen = document.querySelector("#menuOpen")
 // const menuClose = document.querySelector('#menuSluiten')
 const menu = document.querySelector('.menu')
 
-menuOpen.addEventListener('click', () => {
+console.log('test')
+
+menuOpen.addEventListener('click', function(event) {
     menu.classList.toggle('is-open')
     // document.body.style.overflow = 'hidden'
+    console.log('TEST1')
+    event.preventDefault()
 })
 
 // menuClose.addEventListener('click', () => {
