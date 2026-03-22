@@ -1,4 +1,4 @@
-{% render 'partials/head.liquid' %}
+{% render 'partials/head.liquid', district: district %}
 
 {% render 'partials/menu.liquid' %}
 
@@ -31,8 +31,8 @@
                 <span>Niet aangegeven</span>
         {% endif %}            
     </time>
-    {{ story.district }}
-    <a href="">    
+    <span class="{{ district }}-info">{{ story.district }}</span>
+    <a href="/{{ story.district }}/{{ story.slug }}">
         <p>Lees meer →</p>
     </a>
 </article>
