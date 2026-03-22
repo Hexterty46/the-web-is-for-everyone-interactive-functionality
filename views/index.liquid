@@ -1,19 +1,14 @@
-{% render 'partials/head.liquid' %}
-{% comment %} <section>
-    <button>Oost</button>
-    <button>Zuid-oost</button>
-    <button>Nieuw-West</button>
-</section> {% endcomment %}
+{% render 'partials/head.liquid', district: district %}
 {% render 'partials/menu.liquid' %}
 
-
 <div class="input-section">
-    <select onchange="location = this.value">
-        <option value="/">Sorteren</option>
+    <select>
+        <option value="/{{ district }}">Sorteren</option>
         <option value="/{{ district }}?sort=nieuw">Nieuw → Oud</option>
         <option value="/{{ district }}?sort=oud">Oud → Nieuw</option>
     </select>
 </div>
+
 
 {% for story in stories %}
 <article>
@@ -34,10 +29,10 @@
             <span>{{ story.date }}</span>
             {% else %}
                 <span>Niet aangegeven</span>
-        {% endif %}            
+        {% endif %}
     </time>
-    {{ story.district }}
-    <a href="">    
+    <span class="district-info">{{ story.district }}</span>
+    <a href="/{{ story.district }}/{{ story.slug }}">        
         <p>Lees meer →</p>
     </a>
 </article>
