@@ -1,0 +1,33 @@
+{% render 'partials/head.liquid', district: district %}
+
+{% render 'partials/menu.liquid' %}
+
+<div class="back-button"></div>
+<a href="/{{ district }}">
+  <button>Terug</button>
+</a>
+
+  {{ story.title }}
+  {{ story.district }}
+  <p>DIT IS EEN TEST OM TE KIJKEN OF HET WERKT</p>
+
+  <form class="comment-form" method="POST">
+    <h2>Laat een bericht achter</h2>
+    <label>
+      Naam:
+      <input type="text" name="name" required="">
+    </label>
+    <label>
+      Bericht:
+      <textarea id="" name="message" required=""></textarea>
+    </label>
+    <input type="hidden" name="storyID" value="1">
+    <button type="submit"></button>
+    <ul>
+
+    </ul>
+  </form>
+
+
+
+{% render 'partials/foot.liquid' %}
