@@ -74,7 +74,7 @@ app.get('/', async function (request, response) {
    // Geef hier eventueel data aan mee
    const params = {
     'filter[district]': 'algemeen',
-    'fields': 'title, district, intro, date, cover.*'
+    'fields': 'title, slug, district, intro, date, cover.*'
   }
 
   if (request.query.sort === "nieuw") {
@@ -96,20 +96,20 @@ app.get('/', async function (request, response) {
 
    response.render('index.liquid', {
       stories : apiResponseJSON.data,
-      search: request.query.search || ""
+      search: request.query.search || ""    
     })
 })
 
 app.get('/:district', async function (request, response) {
 
   const district = request.params.district || "algemeen"
-
+  console.log(district)
   const params = {
-    'fields': 'title, district, intro, date, cover.*'
+    'fields': 'title, slug, district, intro, date, cover.*'
   }
 
   // Dit zou er eigenlijk moeten zorgen dat, als er geen zoekterm is dat ik dan de artikelen zie van de huidige district, en als er wel een zoekterm is dat er wereldwijd word gezogd. MAAR HET WERKT NOG NIET IK WEET OOK NOG NIET WAAROM
-  // Trim is er voor om alle witruimte te verwijderen aan het begin en einde
+  // Trim is er voor om alle witruimte te verwijderen aan het begin en einde van de string
   if (!request.query.search || request.query.search.trim() === "") {
     params['filter[district]'] = district;
   } else {
@@ -131,8 +131,55 @@ app.get('/:district', async function (request, response) {
   response.render('district.liquid', {
     stories: apiResponseJSON.data,
     district: district,
-    search: request.query.search || ""
+    search: request.query.search || ""  
   })
+
+})
+
+app.get('/:district/:slug', async function (request, response) {
+  const district = request.params.district
+  const slug = request.params.slug
+
+  const params = {
+    'filter[slug][_eq]': slug,
+    'fields': 'title, district, intro, date, cover.*'
+  }
+
+  const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+
+  const apiResponse = await fetch(apiURL)
+  const apiResponseJSON = await apiResponse.json()
+
+  const story = apiResponseJSON.data[0]
+
+  response.render('article.liquid', {
+    story: story,
+    district: district
+  })
+})
+
+app.get('/:slug', async function (request, response) {
+  const slug = request.params.slug
+
+  const params = {
+    'filter[slug][_eq]': slug,
+    'fields': 'title, district, intro, date, cover.*'
+  }
+
+  const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
+
+  const apiResponse = await fetch(apiURL)
+  const apiResponseJSON = await apiResponse.json()
+
+  const story = apiResponseJSON.data[0]
+
+  response.render('article.liquid', {
+    story: story,
+    district: story.district
+  })
+})
+
+app.post('/fdfsfs', async function (request, response) {
 
 })
 
