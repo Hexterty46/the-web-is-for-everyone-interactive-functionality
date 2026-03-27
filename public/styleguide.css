@@ -19,3 +19,13 @@
 
 
 }
+
+@font-face {
+    font-family: Arial-regg;
+    src: url(/arial.ttf);
+}
+
+@font-face {
+    font-family: Buurtcampus-Arial;
+    src: url(/BuurtCampusArial-Bold.woff);
+}

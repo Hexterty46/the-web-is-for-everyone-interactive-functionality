@@ -5,19 +5,42 @@
     line-height: 1.5;
 }
 
-@font-face {
-    font-family: Arial-regg;
-    src: url(/arial.ttf);
-}
-
-@font-face {
-    font-family: Buurtcampus-Arial;
-    src: url(/BuurtCampusArial-Bold.woff);
-}
+/* .district-nieuw-west {
+    background-color: var(--primary-color-nieuw-west);
+} */
 
 body {
     /* background-color: #333d52; */
     /* HEADER STYLING */
+
+    .filter-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .filter-button-lists {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            padding: 1rem 2rem 2rem;
+
+            li {
+                background-color: var(--primary-purple-color);
+                list-style-type: none;
+                padding: 0.5rem 1rem;
+                border-radius: 1rem;
+
+                a {
+                    font-family: Arial-regg, sans-serif;
+                    color: white;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
     header {
         background-color: var(--header-primary-background-color);
         margin: 1rem;
@@ -300,7 +323,29 @@ body {
         }
 
         .nieuw-west-info {
-            background-color: var(--primary-color-nieuw-west);
+            background-color: var(--secondary-grass-color);
+            width: 100%;
+            max-width: 5.7rem;
+            border-radius: 1rem;
+            text-align: center;
+            padding: .3rem;
+            font-family: Arial-regg, sans-serif;
+        }
+
+        .oost-info {
+            background-color: var(--primary-color-oost);
+            color: white;
+            width: 100%;
+            max-width: 5.7rem;
+            border-radius: 1rem;
+            text-align: center;
+            padding: .3rem;
+            font-family: Arial-regg, sans-serif;
+        }
+
+        .algemeen-info {
+            background-color: var(--primary-orange-color);
+            color: white;
             width: 100%;
             max-width: 5.7rem;
             border-radius: 1rem;
