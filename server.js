@@ -142,7 +142,7 @@ app.get('/:district/:slug', async function (request, response) {
 
   const params = {
     'filter[slug][_eq]': slug,
-    'fields': 'title, district, intro, date, cover.*'
+    'fields': 'title, id, slug, district, intro, date, cover.*'
   }
 
   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
@@ -179,8 +179,27 @@ app.get('/:slug', async function (request, response) {
   })
 })
 
-app.post('/fdfsfs', async function (request, response) {
+app.use(express.urlencoded({ extended: true }))
 
+app.post('/:district/:slug/comment', async function (request, response) {
+
+  const res = await fetch('https://fdnd-agency.directus.app/items/buurtcampuskrant_stories_comments', {
+    method: 'POST',
+    body: JSON.stringify({
+      name: request.body.name,
+      comment: request.body.comment,
+      story: Number(request.body.story)
+    }),
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
+  })
+
+  const data = await res.json()
+  console.log(data)
+  console.log(request.params)
+
+  response.redirect(303, `/${request.params.district}/${request.params.slug}/`)
 })
 
 // app.get('/nieuw-west', async function (request, response) {
