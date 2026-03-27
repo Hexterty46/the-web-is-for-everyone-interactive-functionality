@@ -26,7 +26,7 @@
     <input type="hidden" name="story" value="{{ story.id }}">
     <button type="submit">Verstuur</button>
       <h2>Recente reacties</h2>
-      <div class="recent-comments-container">
+      <ul>
         {% if story.comments.size > 0 %}
             {% for comment in story.comments limit:3 %}
               <article class="single-comment">
@@ -39,7 +39,7 @@
                   <span>Nog geen reacties</span>
               </div>
           {% endif %}
-      </div>
+      </ul>
   </form>
 
 {% render 'partials/foot.liquid' %}
