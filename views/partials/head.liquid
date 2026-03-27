@@ -8,12 +8,10 @@
     <link rel="stylesheet" href="/styleguide.css">
     <script src="/script.js" defer></script>
   </head>
-  {% comment %} Class word aangegeven om de huisstijlen toe te passen op verschillende districts. NOG GEEN TIJD GEHAD OM DIT TE TESTEN DOOR AL DIE ANDERE KUT PROBLEMEN {% endcomment %}
   <body class="district-{{ district | default: 'algemeen' }}">
     <header>
       <div class="top-bar">
         <a href="/">
-          {% comment %} De IMAGE zou moeten veranderen bij elke district, IK HEN NOG GEEN IDEE WAAROM DIT NIET GEBEURD IK GA GEK WORDEN {% endcomment %}
           <img src="/logo-{{ district | default: 'algemeen' }}.png" width="150" height="60">
         </a>
         <a class="menu-button" href="#menu" id="menuOpen">Menu</a>
