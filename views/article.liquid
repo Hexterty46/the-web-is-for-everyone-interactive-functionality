@@ -4,30 +4,42 @@
 
 <div class="back-button"></div>
 <a href="/{{ district }}">
-  <button>Terug</button>
+  <button class="back-link">Terug</button>
 </a>
 
-  {{ story.title }}
-  {{ story.district }}
-  <p>DIT IS EEN TEST OM TE KIJKEN OF HET WERKT</p>
+    {% if story.cover.id  %}
+        <img src="https://fdnd-agency.directus.app/assets/{{ story.cover.id }}" alt="" width="209" height="139">
+        {% else %}
+            <img src="/no-image-available-icon.jpg" width="209" height="139">
+    {% endif %}
 
-  <form class="comment-form" method="POST">
+  <form action="/{{ district }}/{{ story.slug }}/comment" class="comment-form" method="POST">
     <h2>Laat een bericht achter</h2>
-    <label>
+    <label for="name">
       Naam:
-      <input type="text" name="name" required="">
+      <input type="text" id="name" name="name" required>
     </label>
-    <label>
+    <label for="comment">
       Bericht:
-      <textarea id="" name="message" required=""></textarea>
+      <textarea id="comment" name="comment" rows="3" required></textarea>
     </label>
-    <input type="hidden" name="storyID" value="1">
-    <button type="submit"></button>
-    <ul>
-
-    </ul>
+    <input type="hidden" name="story" value="{{ story.id }}">
+    <button type="submit">Verstuur</button>
+      <h2>Recente reacties</h2>
+      <div class="recent-comments-container">
+        {% if story.comments.size > 0 %}
+            {% for comment in story.comments limit:3 %}
+              <article class="single-comment">
+                <span>{{ comment.name }}</span>
+                <p>{{ comment.comment }}</p>
+              </article>
+            {% endfor %}
+          {% else %}
+              <div class="empty-state">
+                  <span>Nog geen reacties</span>
+              </div>
+          {% endif %}
+      </div>
   </form>
-
-
 
 {% render 'partials/foot.liquid' %}
