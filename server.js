@@ -142,7 +142,7 @@ app.get('/:district/:slug', async function (request, response) {
 
   const params = {
     'filter[slug][_eq]': slug,
-    'fields': 'title, id, slug, district, intro, date, cover.*'
+    'fields': 'title, id, slug, district, intro, date, cover.*, comments.*'   
   }
 
   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
@@ -152,18 +152,8 @@ app.get('/:district/:slug', async function (request, response) {
 
   const story = apiResponseJSON.data[0]
 
-  const commentsRes = await fetch(
-    'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories_comments?' +
-    new URLSearchParams({
-      'filter[story][_eq]': story.id
-    })
-  )
-
-  const commentsData = await commentsRes.json()
-
   response.render('article.liquid', {
     story: story,
-    comments: commentsData.data,
     district: district
   })
 })

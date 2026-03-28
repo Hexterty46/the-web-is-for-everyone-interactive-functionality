@@ -27,8 +27,8 @@
     <button type="submit">Verstuur</button>
     <h2>Recente reacties</h2>
     <ul>
-      {% if comments.size > 0 %}
-        {% for comment in comments limit:3 %}
+      {% if story.comments and story.comments.size > 0 %}
+        {% for comment in story.comments limit:3 %}
           <article class="single-comment">
             <span>{{ comment.name }}</span>
             <p>{{ comment.comment }}</p>
