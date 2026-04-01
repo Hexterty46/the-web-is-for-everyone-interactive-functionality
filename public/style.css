@@ -5,15 +5,12 @@
     line-height: 1.5;
 }
 
-/* .district-nieuw-west {
-    background-color: var(--primary-color-nieuw-west);
-} */
-
 body {
     /* background-color: #333d52; */
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
     /* HEADER STYLING */
 
-    .filter-buttons {
+    /* .filter-buttons {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -39,7 +36,7 @@ body {
                 }
             }
         }
-    }
+    } */
 
     header {
         background-color: var(--header-primary-background-color);
@@ -67,6 +64,12 @@ body {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            .site-logo {
+                height: 60px;
+                width: auto;
+                display: block;
+            }
 
             .menu-button {
                 padding: .5rem;
@@ -138,9 +141,10 @@ body {
         translate: -100%;
         width: 100%;
         height: 100vh;
-        transition: .3s ease;
-
         interactivity: none;
+        @media (prefers-reduced-motion: no-preference) {
+            transition: transform 0.3s;
+        }
 
         ul {
             display: flex;
@@ -167,6 +171,13 @@ body {
             details {
                 margin: 0;
                 border: none;
+                &::details-content {
+                    @media (prefers-reduced-motion: no-preference) {
+                        transition: 
+                            block-size .3s,
+                            content-visibility .3s allow-discrete;
+                    }
+                }
 
                 summary {
                     font-size: 2rem;
@@ -175,6 +186,7 @@ body {
 
                     span {
                         font-family: Arial-regg, sans-serif;
+                        font-size: 2rem;
                     }
 
                     svg {
@@ -191,10 +203,11 @@ body {
 
                 ul {
                     max-height: 0;
-                    /* overflow: hidden; */
+                    overflow: hidden;
                     transition: max-height 0.3s ease;
 
                     li {
+                        list-style: none;
                         a {
                             font-size: 1.5rem;
                         }
@@ -236,126 +249,200 @@ body {
         }
 
     }
+    /* Cards styling */
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: .5rem;
 
-    article {
-        /* border: 1px solid black; */
-        border-bottom: 1px solid black;
-        /* background-color: #333d52; */
-        display: flex;
-        flex-direction: column;
-        gap: .4rem;
-        /* border-radius: .5rem; */
-        margin: 1rem;
+        @media (width > 1128px) {
+            grid-template-columns: repeat(3,1fr);
+            padding: 2rem 4rem 3rem 4rem;
+        }
 
-        /* &:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 14px rgba(0,0,0,.25);
-        } */
+        .card {
+            background-color: #0f1b3d;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            margin: 1.3rem;
 
-        details {
-            summary {
-                font-size: large;
-                font-family: Arial-regg, sans-serif;
-                /* color: #B4BDD0; */
-                cursor: pointer;
+            &.nieuw-west {
+                background-color: var(--primary-color-nieuw-west);
+            }
+
+            &.card.oost {
+                background-color: var(--primary-color-oost);
+            }
+
+            &.card.zuidoost {
+                background-color: var(--primary-color-zuid-oost);
+            }
+
+            a {
+                text-decoration: none;
+                color: white;
+                display: block;
+            }
+
+            img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .card-content {
+                padding: 1rem;
+
+                h2 {
+                    font-size: 1.4rem;
+                    margin-bottom: 1rem;
+                    font-family: Buurtcampus-Arial, sans-serif;
+                    text-wrap: balance;
+                    border-bottom: 1px solid currentColor;
+                }
+
+                p {
+                    font-family: Arial-regg, sans-serif;
+                    margin-bottom: 1rem;
+                    font-weight: bold;
+                }
+
+                time {
+                    display: flex;
+                    gap: .3rem;
+                    margin-bottom: 1rem;
+                }
+
+                .card-tags {
+                    display: flex;
+                    gap: .5rem;
+
+                    .tag {
+                        background-color: #cfd4df;
+                        color: black;
+                        padding: 0.3rem 0.8rem;
+                        border-radius: 1rem;
+                        font-size: 0.8rem;
+                    }
+
+                    .tag.outline {
+                        background-color: transparent;
+                        border: 1px solid #cfd4df;
+                        color: #cfd4df;
+                    }
+                }
+            }
+        }
+    }
+
+    /* Comments section styling */
+
+    .back-link {
+        padding: 0.5rem 1.2rem;
+        background-color: var(--primary-orange-color);
+        border: none;
+        font-weight: bold;
+        color: #F1F1F1;
+        border-radius: 0.625rem;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #b85018;
+        }
+    }
+
+    .article-comments {
+        max-width: 600px;
+        margin: 2rem auto;
+        padding: 1.5rem;
+        border-radius: 1rem;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-family: Arial-regg, sans-serif;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .comments-field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+
+            input,
+            textarea {
+                padding: 0.8rem;
+                background-color: #F1F1F1;
+                border: none;
+                border-radius: 0.6rem;
+                font-size: 1rem;
+            }
+
+            textarea {
+                resize: vertical;
+                min-height: 100px;
+            }
+        }
+
+        .primary-button {
+            align-self: center;
+            padding: 0.6rem 1.5rem;
+            background-color: var(--primary-orange-color);
+            border: none;
+            border-radius: 0.6rem;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #b85018;
+            }
+        }
+    }
+
+    .recent-comments {
+        max-width: 600px;
+        margin: 2rem auto;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 1rem;font-family: Arial-regg, sans-serif;
+
+        }
+
+        .recent-comments-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .single-comment {
+            background: #f7f7f7;
+            padding: 1rem;
+            border-radius: 0.8rem;
+
+            span {
+                font-weight: bold;
+                display: block;
+                margin-bottom: 0.3rem;
             }
 
             p {
-                text-align: center;
-                font-weight: bold;
-                margin-top: .4rem;
+                margin: 0;
             }
         }
 
-        img {
-            width: 100%;
-            height: auto;
-            /* border-radius: .4rem; */
-            border: none;
-        }
-
-        time {
-            /* color: #B4BDD0; */
-            display: flex;
-            gap: .3rem;
+        .empty-state {
             text-align: center;
-            font-family: Arial-regg, sans-serif;
-        }
-
-        h2 {
-            /* color: #B4BDD0; */
-            font-family: Arial-regg, sans-serif;
-            text-align: center;
-            /* font-size: 1.5rem; */
-            text-wrap: balance;
-        }
-
-        h1 {
-            /* color: #B4BDD0; */
-            font-family: Buurtcampus-Arial;
-            text-align: center;
-        }
-
-        a {
-            text-decoration: none;
-            color: #F26522;
-            font-weight: bold;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        p {
-            font-family: Arial-regg, sans-serif;
-            padding-block: 0.5em;
-            /* color: #B4BDD0; */
-        }
-
-        .district-info {
-            background-color: var(--primary-orange-color);
-            width: 100%;
-            max-width: 5.7rem;
-            border-radius: 1rem;
-            text-align: center;
-            padding: .3rem;
-            font-family: Arial-regg, sans-serif;
-        }
-
-        .nieuw-west-info {
-            background-color: var(--secondary-grass-color);
-            width: 100%;
-            max-width: 5.7rem;
-            border-radius: 1rem;
-            text-align: center;
-            padding: .3rem;
-            font-family: Arial-regg, sans-serif;
-        }
-
-        .oost-info {
-            background-color: var(--primary-color-oost);
-            color: white;
-            width: 100%;
-            max-width: 5.7rem;
-            border-radius: 1rem;
-            text-align: center;
-            padding: .3rem;
-            font-family: Arial-regg, sans-serif;
-        }
-
-        .algemeen-info {
-            background-color: var(--primary-orange-color);
-            color: white;
-            width: 100%;
-            max-width: 5.7rem;
-            border-radius: 1rem;
-            text-align: center;
-            padding: .3rem;
-            font-family: Arial-regg, sans-serif;
-        }
-
-        &:last-child {
-            border-bottom: none;
+            opacity: 0.6;
+            font-style: italic;
         }
     }
 }

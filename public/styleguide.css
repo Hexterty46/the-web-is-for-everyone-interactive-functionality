@@ -1,4 +1,5 @@
 :root {
+    interpolate-size: allow-keywords;
     --header-primary-background-color: #B4BDD0;
     --primary-orange-color: #EA5B0C;
     --primary-purple-color: #333467;
