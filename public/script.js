@@ -11,8 +11,3 @@ if (menuOpen && menu) {
     event.preventDefault();
   });
 }
-
-// menuClose.addEventListener('click', () => {
-//     menu.classList.remove('is-open')
-//     // document.body.style.overflow = ''
-// })
