@@ -1,0 +1,46 @@
+<form method="GET" action="/{{ district }}" class="input-section">
+  {% comment %} Datum sorteren {% endcomment %}
+  <label>
+    <select name="sort">
+      <option value="">Sorteren</option>
+
+      <option value="nieuw"
+        {% if currentSort == "nieuw" %}selected{% endif %}>
+        Nieuw → Oud
+      </option>
+
+      <option value="oud"
+        {% if currentSort == "oud" %}selected{% endif %}>
+        Oud → Nieuw
+      </option>
+    </select>
+  </label>
+
+  <label>
+    {% comment %} Filters {% endcomment %}
+    <select name="filter">
+      <option value="">Filteren</option>
+
+      <option value="HvA medewerkers"
+        {% if currentFilter == "HvA medewerkers" %}selected{% endif %}>
+        HvA medewerkers
+      </option>
+
+      <option value="Studenten"
+        {% if currentFilter == "Studenten" %}selected{% endif %}>
+        Studenten
+      </option>
+
+      <option value="Wijkpartners"
+        {% if currentFilter == "Wijkpartners" %}selected{% endif %}>
+        Wijkpartners
+      </option>
+
+      <option value="Bewoners"
+        {% if currentFilter == "Bewoners" %}selected{% endif %}>
+        Bewoners
+      </option>
+    </select>
+  </label>
+  <input type="submit">
+</form>
