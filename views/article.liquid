@@ -2,31 +2,38 @@
 
 {% render 'partials/menu.liquid' %}
 
-<div class="back-button"></div>
-<a href="/{{ district }}">
-  <button class="back-link">Terug</button>
-</a>
+  <a href="/{{ district }}">
+    <button class="back-link">Terug</button>
+  </a>
 
-    {% if story.cover.id  %}
-        <img src="https://fdnd-agency.directus.app/assets/{{ story.cover.id }}" alt="" width="209" height="139">
-        {% else %}
-            <img src="/no-image-available-icon.jpg" width="209" height="139">
-    {% endif %}
+  {{ story.body }}
 
-  <form action="/{{ district }}/{{ story.slug }}/comment" class="comment-form" method="POST">
+  {% comment %} {% if story.cover.id  %}
+      <img src="https://fdnd-agency.directus.app/assets/{{ story.cover.id }}" alt="" width="209" height="139">
+      {% else %}
+        <img src="/no-image-available-icon.jpg" width="209" height="139">
+  {% endif %} {% endcomment %}
+
+
+  <section class="article-comments">
     <h2>Laat een bericht achter</h2>
-    <label for="name">
-      Naam:
-      <input type="text" id="name" name="name" required>
-    </label>
-    <label for="comment">
-      Bericht:
-      <textarea id="comment" name="comment" rows="3" required></textarea>
-    </label>
-    <input type="hidden" name="story" value="{{ story.id }}">
-    <button type="submit">Verstuur</button>
+      <form action="/{{ district }}/{{ story.slug }}/comment" class="comment-form" method="POST">
+        <label class="comments-field" for="name">
+          Naam:
+          <input type="text" id="name" name="name" placeholder="voornaam + achternaam" required>
+        </label>
+        <label class="comments-field" for="comment">
+          Bericht:
+          <textarea id="comment" name="comment" rows="3" placeholder="Ik heb een opmerking over" required></textarea>
+        </label>
+        <input type="hidden" name="story" value="{{ story.id }}">
+        <button class="primary-button" type="submit">Verstuur</button>
+      </form>
+  </section>
+
+  <section class="recent-comments">
     <h2>Recente reacties</h2>
-    <ul>
+    <div class="recent-comments-container">
       {% if story.comments and story.comments.size > 0 %}
         {% for comment in story.comments limit:3 %}
           <article class="single-comment">
@@ -34,12 +41,13 @@
             <p>{{ comment.comment }}</p>
           </article>
         {% endfor %}
-      {% else %}
+        {% else %}
         <div class="empty-state">
           <span>Nog geen reacties</span>
         </div>
       {% endif %}
-    </ul>
-  </form>
+    </div>
+  </section>
+  
 
 {% render 'partials/foot.liquid' %}
