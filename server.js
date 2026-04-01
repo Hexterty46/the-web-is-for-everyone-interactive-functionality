@@ -74,7 +74,7 @@ app.get('/', async function (request, response) {
    // Geef hier eventueel data aan mee
    const params = {
     'filter[district]': 'algemeen',
-    'fields': 'title, slug, district, intro, date, cover.*'
+    'fields': 'title, target_group, slug, district, intro, date, cover.*'
   }
 
   if (request.query.sort === "nieuw") {
@@ -105,7 +105,7 @@ app.get('/:district', async function (request, response) {
   const district = request.params.district || "algemeen"
   console.log(district)
   const params = {
-    'fields': 'title, slug, district, intro, date, cover.*'
+    'fields': 'title, target_group, slug, district, intro, date, cover.*'
   }
 
   // Dit zou er eigenlijk moeten zorgen dat, als er geen zoekterm is dat ik dan de artikelen zie van de huidige district, en als er wel een zoekterm is dat er wereldwijd word gezogd. MAAR HET WERKT NOG NIET IK WEET OOK NOG NIET WAAROM
@@ -114,6 +114,12 @@ app.get('/:district', async function (request, response) {
     params['filter[district]'] = district;
   } else {
     params['filter[title][_icontains]'] = request.query.search;
+  }
+
+  if (request.query.filter && request.query.filter !== "") {
+    params['filter[category][_eq]'] = request.query.filter
+  } else {
+    params['filter[district]'] = district
   }
 
   // Word gebruikt voor het filteren op datum
@@ -142,7 +148,7 @@ app.get('/:district/:slug', async function (request, response) {
 
   const params = {
     'filter[slug][_eq]': slug,
-    'fields': 'title, id, slug, district, intro, date, cover.*, comments.*'   
+    'fields': 'title, body, target_group, id, slug, district, intro, date, cover.*, comments.*'   
   }
 
   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
@@ -163,7 +169,7 @@ app.get('/:slug', async function (request, response) {
 
   const params = {
     'filter[slug][_eq]': slug,
-    'fields': 'title, district, intro, date, cover.*'
+    'fields': 'title, target_group, district, intro, date, cover.*'
   }
 
   const apiURL = 'https://fdnd-agency.directus.app/items/buurtcampuskrant_stories?' + new URLSearchParams(params)
