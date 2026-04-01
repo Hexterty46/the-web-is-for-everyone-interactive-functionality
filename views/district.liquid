@@ -1,15 +1,6 @@
 {% render 'partials/head.liquid', district: district %}
 {% render 'partials/menu.liquid' %}
-{% render 'partials/input.liquid' %}
-
-
-{% comment %} <div class="input-section">
-    <select onchange="location = this.value">
-        <option value="/{{ district }}">Sorteren</option>
-        <option value="/{{ district }}?sort=nieuw">Nieuw → Oud</option>
-        <option value="/{{ district }}?sort=oud">Oud → Nieuw</option>
-    </select>
-</div> {% endcomment %}
+{% render 'partials/sorteren.liquid', district: district %}
 
 <section class="cards-container">
     {% for story in stories %}
