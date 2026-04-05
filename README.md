@@ -71,7 +71,7 @@ Stap 4 ) Na de installatie is de map node_modules aangemaakt, en gevuld met alle
 
 
 ## Bronnen
-- [Interactivity] (https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/interactivity)
+- [Interactivity](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/interactivity)
 - [prefers-reduced-motion](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-reduced-motion)
 
 ## Licentie
