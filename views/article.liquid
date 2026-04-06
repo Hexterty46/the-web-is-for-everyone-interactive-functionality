@@ -29,7 +29,7 @@
     <h2>Recente reacties</h2>
     <div class="recent-comments-container">
       {% if story.comments and story.comments.size > 0 %}
-        {% for comment in story.comments limit:3 %}
+        {% for comment in story.comments %}
           <article class="single-comment">
             <span>{{ comment.name }}</span>
             <p>{{ comment.comment }}</p>
