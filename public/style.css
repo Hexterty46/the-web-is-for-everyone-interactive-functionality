@@ -5,6 +5,10 @@
     line-height: 1.5;
 }
 
+html.menu-open {
+    overflow: hidden;
+}
+
 body {
     /* background-color: #333d52; */
     font-size: clamp(1rem, 1.2vw, 1.125rem);
@@ -205,6 +209,7 @@ body {
                     span {
                         font-family: Arial-regg, sans-serif;
                         font-size: 2rem;
+                        cursor: pointer;
                     }
 
                     svg {
@@ -268,7 +273,7 @@ body {
 
         input[type="submit"] {
             flex: 0 0 auto;
-            padding: .5rem;
+            padding: .35rem;
             background-color: var(--primary-orange-color);
             color: white;
             border: none;
